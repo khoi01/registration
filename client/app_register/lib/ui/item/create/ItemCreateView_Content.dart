@@ -13,95 +13,83 @@ class ItemCreateViewHeaderUI extends StatelessWidget {
         child: Center(
           child: Text(
             "Create Item".toUpperCase(),
-             style: TextStyle(
-               color:Colors.white
-               ) 
-               ,
-            ),
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-        ),
+      ),
     );
   }
 }
-
 
 class ItemCreateViewContentUI extends StatefulWidget {
   ItemCreateViewContentUI({Key key}) : super(key: key);
 
   @override
-  _ItemCreateViewContentUIState createState() => _ItemCreateViewContentUIState();
+  _ItemCreateViewContentUIState createState() =>
+      _ItemCreateViewContentUIState();
 }
 
 class _ItemCreateViewContentUIState extends State<ItemCreateViewContentUI> {
+  final _itemController = TextEditingController();
 
-    final _itemController = TextEditingController();
-  
   bool showProgress = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-     padding: const EdgeInsets.all(10),
-     child: Column(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextFormField(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: TextFormField(
                     controller: _itemController,
                     style: TextStyle(
-                      color:Colors.black,
+                      color: Colors.black,
                     ),
-                    decoration: InputDecoration(labelText: "Enter Item")
-                  ),
-                ),
-                Flexible(
-                  child: RaisedButton(
+                    decoration: InputDecoration(labelText: "Enter Item")),
+              ),
+              Flexible(
+                child: RaisedButton(
                     child: Text("Submit"),
-                    onPressed: (){
-
-                     //send data to server 
+                    onPressed: () {
+                      //send data to server
                       showProgress = true;
 
                       var item = new Item(name: _itemController.text);
-                      _save(item);
-
-                    
+                      _save(item, context);
                     }),
-                ),
-                Flexible(
-                  child: showProgress ? CircularProgressIndicator(): Text(""),
-                ),
-
-              ],
-            )
-          ],
-     ),
+              ),
+              Flexible(
+                child: showProgress ? CircularProgressIndicator() : Text(""),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 
-  void _save(Item item) async{
+  void _save(Item item, BuildContext context) async {
+    dynamic result = await ItemRepository.insert(Item.table, item);
+    print("result:" + result.toString());
 
-      dynamic result = await ItemRepository.insert(Item.table,item);
-    	print("result:"+result.toString());
-
-      setState(() {
-    	  showProgress = false;
-        _itemController.text = "";
-    	});
-
+    setState(() {
+      showProgress = false;
+      _itemController.text = "";
+      ShowSnackBar("Success", context);
+    });
   }
 
-    void ShowSnackBar(String message,BuildContext context){
+  void ShowSnackBar(String message, BuildContext context) {
+    setState(() {
+      showProgress = false;
+    });
 
-        setState(() {
-           showProgress = false;
-        });
-
-        final snackBar = SnackBar(content: Text(message));
+    final snackBar = SnackBar(content: Text(message));
 
     // Find the Scaffold in the widget tree and use it to show a SnackBar.
     Scaffold.of(context).showSnackBar(snackBar);

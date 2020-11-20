@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 var database = [
     {no:1,name:null}
@@ -20,7 +22,7 @@ app.get('/getData', function (req, res) {
   setTimeout(function(){  res.send(Status);},1000);
 })
 
-app.post('/postData/:name',function(req,res){
+app.post('/postData',function(req,res){
 
   var Status = {
     code: null,
@@ -29,7 +31,7 @@ app.post('/postData/:name',function(req,res){
   }
 
     var count = database.length+1;
-    var name = req.params.name;
+    var name = req.body.name;
 
     database.push({no:count,name:name});
 

@@ -8,18 +8,15 @@ class ItemListViewHeaderUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:  Padding(
+      child: Padding(
         padding: const EdgeInsets.all(10),
         child: Center(
           child: Text(
             "List Item".toUpperCase(),
-             style: TextStyle(
-               color:Colors.white
-               ) 
-               ,
-            ),
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-        ),
+      ),
     );
   }
 }
@@ -32,55 +29,53 @@ class ItemListViewContentUI extends StatefulWidget {
 }
 
 class _ItemListViewContentUIState extends State<ItemListViewContentUI> {
-  
   List<Item> _list = [];
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    refresh();
-    
+    getData();
   }
+
   @override
   Widget build(BuildContext context) {
     print(_list);
-    return  Container(
-      padding: const EdgeInsets.all(10),
-       child: ListView.builder(
-         shrinkWrap: true,
-         itemCount: _list.length,
-         itemBuilder: (context,int index){
-          return Column(
-                    children: <Widget>[
-                      Divider(height: 5.0,),
-                      ListTile(
-                        title:(Text("${_list[index].name}")),
-                        subtitle: Text("User information"),
-                        leading: Column(
-                          children: <Widget>[
-                            CircleAvatar(
-                            backgroundColor:Colors.amber,
-                            radius:23,
-                            child:Text("${_list[index].id}")
-                          )
-                          ],
-                        ),
-                      ),
-                    ],
-                    );         
-          }
-         )
-    );
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: _list.length,
+            itemBuilder: (context, int index) {
+              return Column(
+                children: <Widget>[
+                  Divider(
+                    height: 5.0,
+                  ),
+                  ListTile(
+                    title: (Text("${_list[index].name}")),
+                    subtitle: Text("User information"),
+                    leading: Column(
+                      children: <Widget>[
+                        CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            radius: 23,
+                            child: Text("${_list[index].id}"))
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            }));
   }
-  void getData() async{
-    List<Map<String,dynamic>> _results = await ItemRepository.query(Item.table);
+
+  void getData() async {
+    List<Map<String, dynamic>> _results =
+        await ItemRepository.query(Item.table);
     _list = _results.map((item) => Item.fromMap(item)).toList();
     refresh();
   }
 
-  void refresh(){
- setState(() {});
+  void refresh() {
+    setState(() {});
   }
-
 }
-
