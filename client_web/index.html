@@ -57,7 +57,7 @@
   <script>
 
 
-
+//https://gomakethings.com/how-to-use-the-fetch-api-with-vanilla-js/
 $("#idBtnPost").click(function(){
     requestPost();
 });
@@ -67,29 +67,29 @@ function requestPost(){
       method:"POST",
       body: JSON.stringify({
         name: $("#idInputName").val()
-    }),
-    headers: {
-		'Content-type': 'application/json; charset=UTF-8'
-	}
-    }).then(function (response) {
-        // The API call was successful!
-        return response.json();
-    }).then(function (data) {
-        // This is the JSON from our response
-        //open console from browser and go toinspect element to view the data
-        console.log(data);
+      }),
+      headers: {
+		  'Content-type': 'application/json; charset=UTF-8'
+	    }
+        }).then(function (response) {
+          // The API call was successful!
+          return response.json();
+        }).then(function (data) {
+          // This is the JSON from our response
+          //open console from browser and go toinspect element to view the data
+          console.log(data);
 
-        //show response from the server
-        $('.toast-header').text("Code:"+data.code);
-        $('.toast-body').text("Message:"+data.message);
-        $('.toast').toast('show');
+          //show response from the server
+          $('.toast-header').text("Code:"+data.code);
+          $('.toast-body').text("Message:"+data.message);
+          $('.toast').toast('show');
 
 
 
-    }).catch(function (err) {
-        // There was an error
-        console.warn('Something went wrong.', err);
-    });
+        }).catch(function (err) {
+          // There was an error
+          console.warn('Something went wrong.', err);
+        });
 }
 
   </script>
