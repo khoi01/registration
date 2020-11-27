@@ -78,6 +78,8 @@ function requestPost(){
         // This is the JSON from our response
         //open console from browser and go toinspect element to view the data
         console.log(data);
+
+        //show response from the server
         $('.toast-header').text("Code:"+data.code);
         $('.toast-body').text("Message:"+data.message);
         $('.toast').toast('show');
