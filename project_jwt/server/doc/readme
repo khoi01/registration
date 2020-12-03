@@ -1,0 +1,14 @@
+1. npm init -y
+2. npm install --save express morgan http-errors dotenv
+3. npm install --save nodemon
+4. npm install --save touch-cli -g
+5. touch .env
+6. npm start //start running the server
+
+
+
+
+setup vs code environment
+1.install REST client extention (similar like postman)
+
+https://www.youtube.com/watch?v=Bv0sdSGnX2I
