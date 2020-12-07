@@ -25,7 +25,6 @@ $response = array(
     ),
 );
 
-include 'inc/custom.php';
 include 'inc/init.php';
 
 
