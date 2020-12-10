@@ -4,11 +4,11 @@
 4. npm install --save touch-cli -g
 5. touch .env
 6. npm start //start running the server
-
+7. npm install --save mongoose
 
 
 
 setup vs code environment
 1.install REST client extention (similar like postman)
 
-https://www.youtube.com/watch?v=Bv0sdSGnX2I
+https://www.youtube.com/watch?v=lEQvDRnP77Y&list=PLdHg5T0SNpN0ygjV4yGXNct25jY_ue70U&index=6

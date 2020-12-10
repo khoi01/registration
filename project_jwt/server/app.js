@@ -2,12 +2,14 @@ const express = require('express')
 const morgan = require('morgan')
 const createError = require('http-errors')
 require('dotenv').config()
-
+require('./helpers/init_mongodb');
 //import route into this file
 const AuthRoute = require('./Routes/Auth.route')
 
 
 const app = express()
+
+app.use(morgan('dev')); //dev = development
 
 app.get('/',async(req,res,next)=>{
     res.send("Hello from server")
