@@ -3,11 +3,19 @@ const morgan = require('morgan')
 const createError = require('http-errors')
 require('dotenv').config()
 
+//import route into this file
+const AuthRoute = require('./Routes/Auth.route')
+
+
 const app = express()
 
 app.get('/',async(req,res,next)=>{
     res.send("Hello from server")
 });
+
+
+//use this route if under /auth
+app.use('/auth',AuthRoute);
 
 //handle if request to unknown route (404)
 app.use(async(req,res,next)=>{

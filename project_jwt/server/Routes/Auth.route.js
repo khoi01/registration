@@ -14,9 +14,9 @@ router.delete('/logout',async(req,res,next)=>{
     res.send("logout route")
 })
 
-router.delete('/refresh-token',async(res,res,next)=>{
-    res.secure("refresh token route")
-})
+router.post('/refresh-token',async(req,res,next)=>{
+    res.send("refresh token route")
+}) 
 
 
 
